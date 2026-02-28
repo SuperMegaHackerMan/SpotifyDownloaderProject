@@ -32,11 +32,6 @@ export function usePlaylistTracks(playlistId: string | null) {
   );
 }
 
-export function useLikedSongs() {
-  return useSWR("/api/spotify?action=liked&limit=50", fetcher, {
-    revalidateOnFocus: false,
-  });
-}
 
 export function useSpotifySearch(query: string) {
   return useSWR(

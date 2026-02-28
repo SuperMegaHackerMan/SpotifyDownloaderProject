@@ -24,18 +24,15 @@ export function TrackList({
   const isLiked = playlistId === "liked";
   const playlistData = usePlaylistTracks(isLiked ? null : playlistId);
   const likedData = useLikedSongs();
+  const isLoading = isLiked ? likedData.isLoading : playlistData.isLoading;
+  const error = isLiked ? likedData.error : playlistData.error;
 
-  const { data, isLoading, error } = isLiked ? likedData : playlistData;
-
-  if (!isLoading) {
-    console.log("Tracks data:", data, "With error:", error);
-  }
-
-  const items: PlaylistTrackItem[] = data?.items || [];
+  const items: PlaylistTrackItem[] =
+    (playlistData.data?.items ?? likedData.data?.items) || [];
   const tracks = items
-    .map((item) => item.track)
+    .map((item) => isLiked ?  item.track :item.item)
     .filter(
-      (track): track is SpotifyTrack => track !== null && track.id !== null,
+      (track): track is SpotifyTrack => track !== undefined && track !== null && track.id !== null,
     );
 
   return (
@@ -66,8 +63,9 @@ export function TrackList({
           <Loader2 className="h-6 w-6 animate-spin text-primary" />
         </div>
       ) : error ? (
-        <div className="flex items-center justify-center py-20">
+        <div className="flex items-center justify-center py-20 flex-col">
           <p className="text-muted-foreground">Failed to load tracks</p>
+          <p className="text-muted-foreground">{error?.message}</p>
         </div>
       ) : tracks.length === 0 ? (
         <p className="py-10 text-center text-muted-foreground">

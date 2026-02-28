@@ -89,6 +89,7 @@ export async function GET(request: NextRequest) {
     if (error instanceof Error && error.message === "EXPIRED_TOKEN") {
       return NextResponse.json({ error: "Token expired" }, { status: 401 });
     }
+    console.log(error);
     return NextResponse.json({ error: "API request failed" }, { status: 500 });
   }
 }

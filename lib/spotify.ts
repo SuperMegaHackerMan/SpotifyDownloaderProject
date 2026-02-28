@@ -108,18 +108,47 @@ export async function getCurrentUser(accessToken: string) {
   return spotifyFetch("/me", accessToken);
 }
 
-export async function getUserPlaylists(accessToken: string, limit = 50, offset = 0) {
-  return spotifyFetch(`/me/playlists?limit=${limit}&offset=${offset}`, accessToken);
+export async function getUserPlaylists(
+  accessToken: string,
+  limit = 50,
+  offset = 0,
+) {
+  return spotifyFetch(
+    `/me/playlists?limit=${limit}&offset=${offset}`,
+    accessToken,
+  );
 }
 
-export async function getPlaylistTracks(accessToken: string, playlistId: string, limit = 50, offset = 0) {
-  return spotifyFetch(`/playlists/${playlistId}/tracks?limit=${limit}&offset=${offset}`, accessToken);
+export async function getPlaylistTracks(
+  accessToken: string,
+  playlistId: string,
+  limit = 50,
+  offset = 0,
+) {
+  return spotifyFetch(
+    `/playlists/${playlistId}/items?limit=${limit}&offset=${offset}`,
+    accessToken,
+  );
 }
 
-export async function getLikedSongs(accessToken: string, limit = 50, offset = 0) {
-  return spotifyFetch(`/me/tracks?limit=${limit}&offset=${offset}`, accessToken);
+export async function getLikedSongs(
+  accessToken: string,
+  limit = 50,
+  offset = 0,
+) {
+  return spotifyFetch(
+    `/me/tracks?limit=${limit}&offset=${offset}`,
+    accessToken,
+  );
 }
 
-export async function searchTracks(accessToken: string, query: string, limit = 20) {
-  return spotifyFetch(`/search?q=${encodeURIComponent(query)}&type=track&limit=${limit}`, accessToken);
+export async function searchTracks(
+  accessToken: string,
+  query: string,
+  limit = 20,
+) {
+  return spotifyFetch(
+    `/search?q=${encodeURIComponent(query)}&type=track&limit=${limit}`,
+    accessToken,
+  );
 }

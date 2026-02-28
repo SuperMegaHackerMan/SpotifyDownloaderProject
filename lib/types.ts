@@ -42,6 +42,7 @@ export interface SpotifyTrack {
 }
 
 export interface PlaylistTrackItem {
-  track: SpotifyTrack;
+  item?: SpotifyTrack;
+  track?: SpotifyTrack;
   added_at: string;
 }

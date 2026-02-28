@@ -5,7 +5,7 @@ const fetcher = async (url: string) => {
   if (res.status === 401) {
     throw new Error("UNAUTHORIZED");
   }
-  if (!res.ok) throw new Error("API request failed");
+  if (!res.ok) throw new Error(await res.text());
   return res.json();
 };
 
@@ -28,7 +28,7 @@ export function usePlaylistTracks(playlistId: string | null) {
       ? `/api/spotify?action=playlist-tracks&playlistId=${playlistId}&limit=50`
       : null,
     fetcher,
-    { revalidateOnFocus: false }
+    { revalidateOnFocus: false },
   );
 }
 
@@ -40,8 +40,10 @@ export function useLikedSongs() {
 
 export function useSpotifySearch(query: string) {
   return useSWR(
-    query.length >= 2 ? `/api/spotify?action=search&q=${encodeURIComponent(query)}` : null,
+    query.length >= 2
+      ? `/api/spotify?action=search&q=${encodeURIComponent(query)}`
+      : null,
     fetcher,
-    { revalidateOnFocus: false, dedupingInterval: 500 }
+    { revalidateOnFocus: false, dedupingInterval: 500 },
   );
 }

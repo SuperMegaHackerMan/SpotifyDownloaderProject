@@ -27,22 +27,6 @@ export function TrackList({
 
   const { data, isLoading, error } = isLiked ? likedData : playlistData;
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 className="h-6 w-6 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <p className="text-muted-foreground">Failed to load tracks</p>
-      </div>
-    );
-  }
-
   const items: PlaylistTrackItem[] = data?.items || [];
   const tracks = items
     .map((item) => item.track)
@@ -63,19 +47,27 @@ export function TrackList({
         )}
         <div>
           <h2 className="text-lg font-semibold">{playlistName}</h2>
-          <p className="text-sm text-muted-foreground">
-            {tracks.length} track{tracks.length !== 1 ? "s" : ""}
-          </p>
+          {!isLoading && !error && (
+            <p className="text-sm text-muted-foreground">
+              {tracks.length} track{tracks.length !== 1 ? "s" : ""}
+            </p>
+          )}
         </div>
       </div>
 
-      <div className="flex flex-col gap-1">
-        {tracks.length === 0 ? (
-          <p className="py-10 text-center text-muted-foreground">
-            No tracks found
-          </p>
-        ) : (
-          tracks.map((track, index) => (
+      {isLoading ? (
+        <div className="flex items-center justify-center py-20">
+          <Loader2 className="h-6 w-6 animate-spin text-primary" />
+        </div>
+      ) : error ? (
+        <div className="flex items-center justify-center py-20">
+          <p className="text-muted-foreground">Failed to load tracks</p>
+        </div>
+      ) : tracks.length === 0 ? (
+        <p className="py-10 text-center text-muted-foreground">No tracks found</p>
+      ) : (
+        <div className="flex flex-col gap-1">
+          {tracks.map((track, index) => (
             <TrackRow
               key={track.id}
               track={track}
@@ -83,9 +75,9 @@ export function TrackList({
               isQueued={queuedTrackIds.has(track.id)}
               onAddToQueue={onAddToQueue}
             />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

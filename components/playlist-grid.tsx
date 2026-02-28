@@ -27,8 +27,6 @@ export function PlaylistGrid({ onSelectPlaylist }: PlaylistGridProps) {
     );
   }
 
-  console.log("Playlists data:", data);
-
   const playlists: SpotifyPlaylist[] = data?.items || [];
 
   return (

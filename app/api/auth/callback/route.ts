@@ -5,8 +5,6 @@ import { cookies } from "next/headers";
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const orginalUri = `${url.protocol}//${url.hostname === "localhost" ? "127.0.0.1" : url.hostname}${url.port ? `:${url.port}` : ""}`;
-  console.log("Callback URL:", url.toString());
-  console.log("Original URI:", orginalUri);
   const code = url.searchParams.get("code");
   const error = url.searchParams.get("error");
 
@@ -15,7 +13,6 @@ export async function GET(request: Request) {
   }
 
   try {
-    console.log("originalUri:", url.origin);
     const redirectUri = `${orginalUri}/api/auth/callback`;
     const tokenData = await getAccessToken(code, redirectUri);
 

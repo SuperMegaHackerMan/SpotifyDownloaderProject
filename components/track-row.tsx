@@ -27,7 +27,6 @@ export function TrackRow({
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  console.log("Track:", track);
 
   const togglePreview = () => {
     if (!track.preview_url) return;

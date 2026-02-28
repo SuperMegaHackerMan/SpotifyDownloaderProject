@@ -27,10 +27,16 @@ export function TrackList({
 
   const { data, isLoading, error } = isLiked ? likedData : playlistData;
 
+  if (!isLoading) {
+    console.log("Tracks data:", data, "With error:", error);
+  }
+
   const items: PlaylistTrackItem[] = data?.items || [];
   const tracks = items
     .map((item) => item.track)
-    .filter((track): track is SpotifyTrack => track !== null && track.id !== null);
+    .filter(
+      (track): track is SpotifyTrack => track !== null && track.id !== null,
+    );
 
   return (
     <div>
@@ -64,7 +70,9 @@ export function TrackList({
           <p className="text-muted-foreground">Failed to load tracks</p>
         </div>
       ) : tracks.length === 0 ? (
-        <p className="py-10 text-center text-muted-foreground">No tracks found</p>
+        <p className="py-10 text-center text-muted-foreground">
+          No tracks found
+        </p>
       ) : (
         <div className="flex flex-col gap-1">
           {tracks.map((track, index) => (

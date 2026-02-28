@@ -23,6 +23,26 @@ export function getSpotifyAuthUrl(redirectUri: string) {
   return `https://accounts.spotify.com/authorize?${params.toString()}`;
 }
 
+export async function getAccessTokenTest() {
+  const response = await fetch(SPOTIFY_TOKEN_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Basic ${Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString("base64")}`,
+    },
+    body: new URLSearchParams({
+      grant_type: "authorization_code",
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Failed to get access token: ${error}`);
+  }
+
+  return response.json();
+}
+
 export async function getAccessToken(code: string, redirectUri: string) {
   const response = await fetch(SPOTIFY_TOKEN_URL, {
     method: "POST",

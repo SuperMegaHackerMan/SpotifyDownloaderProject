@@ -18,9 +18,16 @@ function formatDuration(ms: number) {
   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
 
-export function TrackRow({ track, index, isQueued, onAddToQueue }: TrackRowProps) {
+export function TrackRow({
+  track,
+  index,
+  isQueued,
+  onAddToQueue,
+}: TrackRowProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  console.log("Track:", track);
 
   const togglePreview = () => {
     if (!track.preview_url) return;
@@ -79,7 +86,9 @@ export function TrackRow({ track, index, isQueued, onAddToQueue }: TrackRowProps
       </button>
 
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-medium text-foreground">{track.name}</p>
+        <p className="truncate text-sm font-medium text-foreground">
+          {track.name}
+        </p>
         <p className="truncate text-xs text-muted-foreground">{artistNames}</p>
       </div>
 
@@ -91,7 +100,7 @@ export function TrackRow({ track, index, isQueued, onAddToQueue }: TrackRowProps
         variant={isQueued ? "secondary" : "ghost"}
         size="sm"
         onClick={() => !isQueued && onAddToQueue(track)}
-        disabled={isQueued || !track.preview_url}
+        // disabled={isQueued || !track.preview_url}
         className={
           isQueued
             ? "text-primary"
@@ -99,7 +108,13 @@ export function TrackRow({ track, index, isQueued, onAddToQueue }: TrackRowProps
               ? "text-muted-foreground/40"
               : "text-muted-foreground hover:text-primary"
         }
-        title={!track.preview_url ? "No preview available" : isQueued ? "Already in queue" : "Add to download queue"}
+        title={
+          !track.preview_url
+            ? "No preview available"
+            : isQueued
+              ? "Already in queue"
+              : "Add to download queue"
+        }
       >
         {isQueued ? (
           <Check className="h-4 w-4" />

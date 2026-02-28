@@ -26,7 +26,11 @@ interface TrackDownloadState {
   [trackId: string]: DownloadStatus;
 }
 
-export function DownloadQueue({ tracks, onRemove, onClear }: DownloadQueueProps) {
+export function DownloadQueue({
+  tracks,
+  onRemove,
+  onClear,
+}: DownloadQueueProps) {
   const [downloadStates, setDownloadStates] = useState<TrackDownloadState>({});
   const [isDownloadingAll, setIsDownloadingAll] = useState(false);
 
@@ -38,7 +42,7 @@ export function DownloadQueue({ tracks, onRemove, onClear }: DownloadQueueProps)
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          previewUrl: track.preview_url,
+          //       previewUrl: track.preview_url,
           trackName: track.name,
           artistName: track.artists.map((a) => a.name).join(", "),
         }),

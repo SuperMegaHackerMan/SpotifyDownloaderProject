@@ -27,6 +27,8 @@ export function PlaylistGrid({ onSelectPlaylist }: PlaylistGridProps) {
     );
   }
 
+  console.log("Playlists data:", data);
+
   const playlists: SpotifyPlaylist[] = data?.items || [];
 
   return (
@@ -58,9 +60,12 @@ export function PlaylistGrid({ onSelectPlaylist }: PlaylistGridProps) {
               )}
             </div>
             <div className="min-w-0">
-              <p className="truncate text-sm font-medium text-card-foreground">{playlist.name}</p>
+              <p className="truncate text-sm font-medium text-card-foreground">
+                {playlist.name}
+              </p>
               <p className="text-xs text-muted-foreground">
-                {playlist.tracks.total} track{playlist.tracks.total !== 1 ? "s" : ""}
+                {playlist.items.total} track
+                {playlist.items.total !== 1 ? "s" : ""}
               </p>
             </div>
           </button>

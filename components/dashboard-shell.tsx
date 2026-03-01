@@ -77,7 +77,7 @@ export function DashboardShell({ user }: DashboardShellProps) {
                   queuedTrackIds={new Set(downloadQueue.map((t) => t.id))}
                 />
               ) : (
-                <PlaylistGrid onSelectPlaylist={handleSelectPlaylist} />
+                <PlaylistGrid userName={user.display_name} onSelectPlaylist={handleSelectPlaylist} />
               )}
             </TabsContent>
 

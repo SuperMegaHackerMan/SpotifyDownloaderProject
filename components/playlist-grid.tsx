@@ -6,9 +6,10 @@ import { Loader2, ListMusic } from "lucide-react";
 
 interface PlaylistGridProps {
   onSelectPlaylist: (id: string, name: string) => void;
+  userName: string;
 }
 
-export function PlaylistGrid({ onSelectPlaylist }: PlaylistGridProps) {
+export function PlaylistGrid({ onSelectPlaylist , userName}: PlaylistGridProps) {
   const { data, isLoading, error } = useSpotifyPlaylists();
 
   if (isLoading) {
@@ -29,16 +30,18 @@ export function PlaylistGrid({ onSelectPlaylist }: PlaylistGridProps) {
 
   const playlists: SpotifyPlaylist[] = data?.items || [];
 
+  const ownedPlaylists = playlists.filter(p => p.owner.display_name === userName);
+
   return (
     <div>
       <h2 className="mb-4 text-lg font-semibold">
         Your Playlists
         <span className="ml-2 text-sm font-normal text-muted-foreground">
-          ({playlists.length})
+          ({ownedPlaylists.length})
         </span>
       </h2>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4">
-        {playlists.map((playlist) => (
+        {ownedPlaylists.map((playlist) => (
           <button
             key={playlist.id}
             onClick={() => onSelectPlaylist(playlist.id, playlist.name)}

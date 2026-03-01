@@ -53,3 +53,25 @@ The three main content tabs (Playlists, Liked Songs, Search) all render `TrackRo
 - `lib/utils.ts` exports `cn()` (clsx + tailwind-merge) — use this for all className merging
 - `next-themes` handles dark/light mode via `ThemeProvider` in `app/layout.tsx`
 - Icons are from `lucide-react`
+
+### Python API (Full-Song Downloader)
+A separate FastAPI service in `python_api/` that uses yt-dlp to search YouTube and download full songs as MP3s.
+
+**Setup:**
+```bash
+cd python_api
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
+```
+
+**System dependency:** `ffmpeg` must be installed and on PATH (required by yt-dlp for MP3 conversion).
+- Windows: `winget install ffmpeg` or download from https://ffmpeg.org
+
+**Endpoints:**
+- `GET /health` → `{ "status": "ok" }`
+- `POST /download` body: `{ "track_name": str, "artist_name": str }` → streams MP3
+
+**Next.js integration:**
+- `app/api/full-download/route.ts` proxies POST requests from the browser to the Python API
+- Configured via `PYTHON_API_URL` env var (default: `http://localhost:8000`)
+- Returns 503 if the Python service is unreachable

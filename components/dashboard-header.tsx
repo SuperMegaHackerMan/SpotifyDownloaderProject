@@ -23,7 +23,7 @@ export function DashboardHeader({ user, queueCount }: DashboardHeaderProps) {
           <Music className="h-5 w-5 text-primary-foreground" />
         </div>
         <div>
-          <h1 className="text-sm font-bold leading-tight">Spotify Preview Grabber</h1>
+          <h1 className="text-sm font-bold leading-tight">Spotify Music Grabber</h1>
           <p className="text-xs text-muted-foreground">
             {queueCount} track{queueCount !== 1 ? "s" : ""} in queue
           </p>

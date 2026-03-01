@@ -38,7 +38,7 @@ export function DownloadQueue({
     setDownloadStates((prev) => ({ ...prev, [track.id]: "downloading" }));
 
     try {
-      const response = await fetch("/api/download", {
+      const response = await fetch("/api/full-download", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -53,7 +53,7 @@ export function DownloadQueue({
       const blob = await response.blob();
       const artistNames = track.artists.map((a) => a.name).join(", ");
       const filename = `${artistNames} - ${track.name}.mp3`
-        .replace(/[^a-zA-Z0-9\s\-_.()]/g, "")
+        .replace(/[\\/:*?"<>|]/g, "")
         .trim();
 
       const url = URL.createObjectURL(blob);

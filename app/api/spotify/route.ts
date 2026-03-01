@@ -55,7 +55,6 @@ export async function GET(request: NextRequest) {
         const limit = parseInt(searchParams.get("limit") || "50");
         const offset = parseInt(searchParams.get("offset") || "0");
         const data = await getUserPlaylists(token, limit, offset);
-        console.log('playlists data:', JSON.stringify(data, null, 2));
         return NextResponse.json(data);
       }
       case "playlist-tracks": {

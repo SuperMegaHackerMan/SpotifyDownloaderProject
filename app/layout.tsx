@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Spotify Preview Grabber',
-  description: 'Browse your Spotify playlists and liked songs, search for any track, and download 30-second preview clips as MP3 files.',
+  title: 'Spotify Music Grabber',
+  description: 'Browse your Spotify playlists and liked songs, search for any track, and download tracks clips as MP3 files.',
   icons: {
     icon: [
       {

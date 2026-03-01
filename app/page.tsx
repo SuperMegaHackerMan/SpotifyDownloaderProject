@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 
 export default function HomePage() {
   const [mounted, setMounted] = useState(false);
-
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -38,7 +37,7 @@ export default function HomePage() {
           }`}
         >
           <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            Spotify Preview{" "}
+            Spotify Music{" "}
             <span className="text-primary/50">Grabber</span>
           </h1>
           <p className="mx-auto max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg md:max-w-xl">
@@ -54,17 +53,17 @@ export default function HomePage() {
             mounted ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
           }`}
         >
-          <Button
-            asChild
-            size="lg"
-            className="group gap-2 px-8 text-base font-semibold shadow-lg transition-all hover:scale-105 hover:shadow-xl"
-          >
-            <a href="/api/auth/login">
-              <SpotifyIcon />
-              Connect with Spotify
-              <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </a>
-          </Button>
+            <Button
+              asChild
+              size="lg"
+              className="group gap-2 px-8 text-base font-semibold shadow-lg transition-all hover:scale-105 hover:shadow-xl"
+            >
+              <a href="/api/auth/login">
+                <SpotifyIcon />
+                Connect with Spotify
+                <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </a>
+            </Button>
           <p className="text-xs text-muted-foreground">
             Free · Read-only access · No data stored
           </p>
